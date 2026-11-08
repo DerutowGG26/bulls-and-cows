@@ -1,9 +1,15 @@
 export const evaluateGuess = (secret: string, guess: string): { bulls: number; cows: number } => {
-  void secret;
-  void guess;
+  const secretDigits = [...secret.toLowerCase()];
+  const guessDigits = [...guess.toLowerCase()];
+  const secretDigitSet = new Set(secretDigits);
 
-  return {
-    bulls: 0,
-    cows: 0,
-  };
+  const bulls = secretDigits
+    .map((digit, index) => Number(digit === guessDigits[index]))
+    .reduce((total, isBull) => total + isBull, 0);
+
+  const matchingDigits = new Set(guessDigits.filter((digit) => secretDigitSet.has(digit)));
+
+  const cows = matchingDigits.size - bulls;
+
+  return { bulls, cows };
 };
