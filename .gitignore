@@ -1,0 +1,16 @@
+#Dependencies
+node_modules/
+
+#Build output
+dist/
+
+#Test reports
+coverage/
+.vitest/
+
+#TypeScript cache
+*.tsbuildinfo
+
+#Logs
+npm-debug.log*
+
