@@ -5,6 +5,7 @@ import {
   startGame,
   submitGuess,
   updateGameSettings,
+  type GameBase,
 } from '../src/state/gameState.ts';
 
 describe('Game State', () => {
@@ -33,13 +34,18 @@ describe('Game State', () => {
     });
   });
 
-  test.for([
+  const invalidSettings: { length: number; base: GameBase }[] = [
     { length: 1, base: 10 },
     { length: 7, base: 16 },
     { length: 3, base: 2 },
-  ])('rejects invalid initial settings: length $length, base $base', ({ length, base }) => {
-    expect(() => createInitialGameState({ length, base })).toThrow(RangeError);
-  });
+  ];
+
+  test.for(invalidSettings)(
+    'rejects invalid initial settings: length $length, base $base',
+    ({ length, base }) => {
+      expect(() => createInitialGameState({ length, base })).toThrow(RangeError);
+    },
+  );
 
   test('updates settings before starting a game', () => {
     const initialState = createInitialGameState();
